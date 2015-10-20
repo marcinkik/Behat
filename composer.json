@@ -1,0 +1,16 @@
+{
+  "require": {
+    "behat/behat": "3.0.*@stable",
+    "rstgroup/rest-behat-tests": "0.1.*",
+    "behat/mink": "~1.7@dev",
+    "behat/mink-goutte-driver": "*",
+    "behat/mink-extension": "*",
+    "behat/mink-selenium2-driver": "*"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "ssh://git@gitlab:34022/common/rest-behat-tests.git"
+    }
+  ]
+}
