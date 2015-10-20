@@ -1,5 +1,5 @@
 <?php
-use Behat\Behat\Context\BehatContext;
+use Behat\Behat\Context\Context;
 
 use Behat\Mink\Mink,
     Behat\Mink\Session,
@@ -10,7 +10,7 @@ use Selenium\Client as SeleniumClient;
 require_once 'PHPUnit/Autoload.php';
 require_once 'PHPUnit/Framework/Assert/Functions.php';
 
-class GuiContext extends BehatContext
+class GuiContext implements Context
 {
 
     public function __construct(array $parameters)
