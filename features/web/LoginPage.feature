@@ -19,4 +19,4 @@ Feature: Login page works correctly and handle errors message
     And I set "51-27" in "TransId"
     And I set "incorrect password" in "Password"
     When I press "Log in" button
-    Then I should see "error" message with "Invalid credentials"
+    Then I should see "error" message with "Invalid credentials" after "1000" time

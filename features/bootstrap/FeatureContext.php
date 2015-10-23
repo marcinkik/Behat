@@ -125,9 +125,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * @Then I should see :arg1 message with :arg2
      */
-    public function iShouldSeeMessageWith($expected_type, $expected_text)
+    public function iShouldSeeMessageWith($expected_type, $expected_text, $time=10)
     {
-        $this->gui->wait(1000);
+        $this->gui->wait($time);
         $page = $this->gui->getPage();
         $search_type = ".notification-type-".$expected_type;
         //$text = $page->find("named", array("content", $message_text))->getText();
@@ -136,6 +136,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
         //$message_hide = $page->find('css', '.notification-widget-wrapper ng-isolate-scope ng-hide');
         //var_dump($current_type);
         if($current_type == null){
+            $this->gui->stop();
             throw new Exception('Not found type of message.');
         }
         $current_text = $page->find('css', '.message-wrapper')->getText();
@@ -157,5 +158,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
 //        }
         $this->gui->stop();
     }
-
+    /**
+     * @Then I should see :arg1 message with :arg2 after :arg3 time
+     */
+    public function iShouldSeeMessageWithAftertime($expected_type, $expected_text, $time)
+    {
+        $this->iShouldSeeMessageWith($expected_type, $expected_text, $time);
+    }
 }
