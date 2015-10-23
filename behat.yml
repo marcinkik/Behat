@@ -4,7 +4,7 @@ default:
   suites:
     default:
       paths:
-        - %paths.base%/features
+        - %paths.base%/features/web
       context:
         - %paths.base%/bootstrap/FeatureContext:
           parameters:
