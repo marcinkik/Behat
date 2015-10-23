@@ -88,16 +88,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then I should see :message_text
+     * @Then I should see :arg1 with  :arg2t
      */
-    public function iShouldSee($message_text)
+    public function iShouldSeeMessageWith2($expected_type, $expected_text)
     {
-        $this->gui->wait(1000);
         $page = $this->gui->getPage();
+
         //$text = $page->find("named", array("content", $message_text))->getText();
         //$text = $page->find("named", array("content", $message_text));
-        $text = $page->find('css', '.message-wrapper')->getText();
-        assertEquals($message_text,$text);
+        $current_type = $page->find('css', 'notification-widget notification-type-' + $expected_type);
+        $message_hide = $page->find('css', 'notification-widget-wrapper ng-isolate-scope ng-hide');
+
+        if($current_type == null){
+            throw new Exception('Not found type of message.');
+        }
+        $current_text = $page->find('css', '.message-wrapperrr')->getText();
+        assertEquals($expected_text, $current_text);
         //var_dump($text2);
         //$result = assertEquals("x","y");
         //var_dump(assertEquals("x","y"));
@@ -115,4 +121,41 @@ class FeatureContext implements Context, SnippetAcceptingContext
 //        }
         $this->gui->stop();
     }
+
+    /**
+     * @Then I should see :arg1 message with :arg2
+     */
+    public function iShouldSeeMessageWith($expected_type, $expected_text)
+    {
+        $this->gui->wait(1000);
+        $page = $this->gui->getPage();
+        $search_type = ".notification-type-".$expected_type;
+        //$text = $page->find("named", array("content", $message_text))->getText();
+        //$text = $page->find("named", array("content", $message_text));
+        $current_type = $page->find('css', $search_type);
+        //$message_hide = $page->find('css', '.notification-widget-wrapper ng-isolate-scope ng-hide');
+        //var_dump($current_type);
+        if($current_type == null){
+            throw new Exception('Not found type of message.');
+        }
+        $current_text = $page->find('css', '.message-wrapper')->getText();
+        assertEquals($expected_text, $current_text);
+        //var_dump($text2);
+        //$result = assertEquals("x","y");
+        //var_dump(assertEquals("x","y"));
+//        if($text == null){
+//            throw new \Exception('The element is not found');
+//        }
+//        else{
+//            assertEquals($message_text, $text->getText());
+//        }
+//        if($text != null){
+//            assertEquals($message_text, $text->getText());
+//        }
+//        else{
+//            var_dump("Not found " + $message_text + " on page.");
+//        }
+        $this->gui->stop();
+    }
+
 }
